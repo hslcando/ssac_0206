@@ -14,37 +14,39 @@ with st.form("form"):
     size = st.selectbox("size",['1024x1024','512x512','256x256'])
     submit =st.form_submit_button("Submit")
 
-if submit and user_input:
+
 
 
 # 입력받는 곳
 # st.button("클릭")
 # user_input = "오동나무"
 
-gpt_prompt = [{
-    "role":"system",
-    "content":"Imagine the detail appeareance of the input.Response it shortly around 15 words",
-}]
+if submit and user_input:
+    gpt_prompt = [{
+        "role":"system",
+        "content":"Imagine the detail appeareance of the input.Response it shortly around 15 words",
+    }]
 
-gpt_prompt.append(
-    {
-    "role":"user",
-    "content": user_input})
-with st.spinner("Waiting for ChatGPT ..."):
-    gpt_response = client.chat.completions.create(
-        model= "gpt-3.5-turbo",
-        messages= gpt_prompt
-    )
+    gpt_prompt.append(
+        {
+        "role":"user",
+        "content": user_input})
+
+    with st.spinner("Waiting for ChatGPT ..."):
+        gpt_response = client.chat.completions.create(
+            model= "gpt-3.5-turbo",
+            messages= gpt_prompt
+        )
 
     dalle_prompt = gpt_response.choices[0].message.content
-    st.write("dall-e prompt:",)
+    st.write("dall-e prompt:")
 
-with st.spinner("Waiting for ChatGPT ..."):
-    dalle_response = client.images.generate(
-        model='dall-e-2',
-        prompt = dalle_prompt,
-        size = '1024x1024'
-    )
-# print(gpt_response.choices[0].message.content)
-# st.write(gpt_prompt)  
-    st.image(dalle_response.data[0].url)
+    with st.spinner("Waiting for ChatGPT ..."):
+        dalle_response = client.images.generate(
+            model='dall-e-2',
+            prompt = dalle_prompt,
+            size = '1024x1024'
+        )
+    # print(gpt_response.choices[0].message.content)
+    # st.write(gpt_prompt)  
+        st.image(dalle_response.data[0].url)
