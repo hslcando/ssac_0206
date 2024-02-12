@@ -7,10 +7,11 @@ os.environ['OPENAI_API_KEY'] = st.secrets['api_key']
 # st.write(os.environ['OPENAI_API_KEY'])
 client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
 
-st.title("이미지 생성기입니다.")
+st.title("귀여운 우이를 위한 이미지 생성기입니다.")
+st.title("간바레 우이야")
 
 with st.form("form"):
-    user_input = st.text_input("그리고싶은 그림은?")
+    user_input = st.text_input("우이노 센타쿠와?")
     size = st.selectbox("size",['1024x1024','512x512','256x256'])
     submit =st.form_submit_button("Submit")
 
